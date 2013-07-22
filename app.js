@@ -39,12 +39,14 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 
 var io = require('socket.io').listen(server);
 io.sockets.on('connection', function(socket) {
+    socket.broadcast.emit('enter', socket.id);
+
     socket.on('msg send', function(msg) {
         socket.emit('msg push', msg);
         socket.broadcast.emit('msg push', msg);
     });
 
     socket.on('disconnect', function() {
-        log('disconnected');
+        socket.broadcast.emit('leave', socket.id);
     });
 });

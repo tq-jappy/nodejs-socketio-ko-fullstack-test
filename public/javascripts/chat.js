@@ -5,6 +5,20 @@ $(function() {
         console.log('connected');
     });
 
+    socket.on('enter', function(socketId) {
+        console.log('someone entered');
+
+        var date = new Date();
+        $('#list').prepend($('<dt>' + date + '</dt><dd>' + socketId + ' logged in.</dd>'));
+    });
+
+    socket.on('leave', function(socketId) {
+        console.log('someone leaved');
+
+        var date = new Date();
+        $('#list').prepend($('<dt>' + date + '</dt><dd>' + socketId + ' logout.</dd>'));
+    });
+
     $("#btn").click(function() {
         var msg = $('#message');
         console.log(msg);
