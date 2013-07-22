@@ -4,12 +4,15 @@
  */
 
 var express = require('express')
+  , partials = require('express-partials')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
   , path = require('path');
 
 var app = express();
+
+app.use(partials());
 
 // all environments
 app.set('port', process.env.PORT || 3000);
