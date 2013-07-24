@@ -30,7 +30,8 @@ if ('development' == app.get('env')) {
 }
 
 var appController = require('./app/controllers/app_controller').appController(app)
-  , userController = require('./app/controllers/user_controller').userController(app);
+  , userController = require('./app/controllers/user_controller').userController(app)
+  , messageController = require('./app/controllers/message_controller').messageController(app);
 
 app.get('/', appController.index);
 app.get('/users', userController.index);
@@ -39,16 +40,6 @@ var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
 });
 
-var io = require('socket.io').listen(server);
-io.sockets.on('connection', function(socket) {
-    socket.broadcast.emit('enter', socket.id);
-
-    socket.on('msg send', function(msg) {
-        socket.emit('msg push', msg);
-        socket.broadcast.emit('msg push', msg);
-    });
-
-    socket.on('disconnect', function() {
-        socket.broadcast.emit('leave', socket.id);
-    });
-});
+var sio = require('socket.io').listen(server);
+app.set('sio', sio);
+sio.sockets.on('connection', messageController.connection);
