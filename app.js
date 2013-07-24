@@ -5,8 +5,6 @@
 
 var express = require('express')
   , partials = require('express-partials')
-  , routes = require('./routes')
-  , user = require('./routes/user')
   , http = require('http')
   , path = require('path')
   , config = require('./config/config');
@@ -31,8 +29,11 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/users', user.list);
+var appController = require('./app/controllers/app_controller').appController(app)
+  , userController = require('./app/controllers/user_controller').userController(app);
+
+app.get('/', appController.index);
+app.get('/users', userController.index);
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
