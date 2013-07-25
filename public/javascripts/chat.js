@@ -1,6 +1,13 @@
 $(function() {
     var socket = io.connect('http://localhost:3000/');
 
+    $("#btn").click(function() {
+        var msg = $('#message');
+        console.log(msg);
+
+        socket.emit('msg send', msg.val());
+    });
+
     socket.on('connect', function() {
         console.log('connected');
     });
@@ -17,13 +24,6 @@ $(function() {
 
         var date = new Date();
         $('#list').prepend($('<dt>' + date + '</dt><dd>' + socketId + ' logout.</dd>'));
-    });
-
-    $("#btn").click(function() {
-        var msg = $('#message');
-        console.log(msg);
-
-        socket.emit('msg send', msg.val());
     });
 
     socket.on('msg push', function(msg) {
