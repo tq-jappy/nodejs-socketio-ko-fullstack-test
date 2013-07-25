@@ -1,7 +1,7 @@
 nodets-websocket
 ================
 
-Sample application using Node.JS, WebSocket, Socket.IO, TypeScript and MongoDB
+Sample application using Node.js, WebSocket, Socket.IO, Knockout.js and MongoDB
 
 ## Build
 

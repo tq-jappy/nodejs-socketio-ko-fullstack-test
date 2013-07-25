@@ -1,6 +1,21 @@
 $(function() {
     var socket = io.connect('http://localhost:3000/');
 
+    // Knockout
+    var MessageViewModel = function(date, message) {
+        this.date = ko.observable(date);
+        this.message = ko.observable(message);
+    };
+
+    var appViewModel = {
+        messages: ko.observableArray(),
+        add: function(date, message) {
+            var newItem = new MessageViewModel(date, message);
+            this.messages.push(newItem);
+        }
+    };
+    ko.applyBindings(appViewModel);
+
     $("#btn").click(function() {
         var msg = $('#message');
         console.log(msg);
@@ -38,20 +53,20 @@ $(function() {
         console.log('someone entered');
 
         var date = new Date();
-        $('#list').prepend($('<dt>' + date + '</dt><dd>' + socketId + ' logged in.</dd>'));
+        appViewModel.add(date, socketId + ' logged in!');
     });
 
     socket.on('leave', function(socketId) {
         console.log('someone leaved');
 
         var date = new Date();
-        $('#list').prepend($('<dt>' + date + '</dt><dd>' + socketId + ' logout.</dd>'));
+        appViewModel.add(date, socketId + ' logged out!');
     });
 
     socket.on('msg push', function(msg) {
         console.log(msg);
 
         var date = new Date();
-        $('#list').prepend($('<dt>' + date + '</dt><dd>' + msg + '</dd>'));
+        appViewModel.add(date, 'say: ' + msg);
     });
 });
