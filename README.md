@@ -14,16 +14,23 @@ Sample application using Node.JS, WebSocket, Socket.IO, TypeScript and MongoDB
 ### Setup
 
 1. ``npm install -g mocha``
-2. ``nmp install -g coffee-script``
+2. ``npm install -g should``
+3. ``nmp install -g coffee-script``
 
-### Run .js test
+### Run a .js test
 
 ```
 mocha -R spec test\hoge.js
 ```
 
-### Run .coffee test
+### Run a .coffee test
 
 ```
 mocha --compilers coffee:coffee-script -R spec test\hoge.js
+```
+
+### Run all tests
+
+```
+mocha --compilers coffee:coffee-script -R spec --recursive
 ```

@@ -1,5 +1,5 @@
 should = require 'should'
-controller = require '../app/controllers/app_controller'
+controller = require '../../app/controllers/app_controller'
 
 describe "app_controllers", ->
   beforeEach =>
