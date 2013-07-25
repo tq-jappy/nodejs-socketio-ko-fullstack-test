@@ -17,20 +17,22 @@ Sample application using Node.JS, WebSocket, Socket.IO, TypeScript and MongoDB
 2. ``npm install -g should``
 3. ``nmp install -g coffee-script``
 
+Mocha options are specified in test/mocha.opts
+
 ### Run a .js test
 
 ```
-mocha -R spec test\hoge.js
+mocha test\hoge.js
 ```
 
 ### Run a .coffee test
 
 ```
-mocha --compilers coffee:coffee-script -R spec test\hoge.js
+mocha test\hoge.coffee
 ```
 
 ### Run all tests
 
 ```
-mocha --compilers coffee:coffee-script -R spec --recursive
+mocha
 ```
