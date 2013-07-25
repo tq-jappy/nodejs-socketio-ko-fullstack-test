@@ -8,9 +8,31 @@ $(function() {
         socket.emit('msg send', msg.val());
     });
 
+    socket.on('connecting', function() {
+        console.log('connecting');
+    });
+
+    socket.on('connection', function() {
+        console.log('connection');
+    });
+
+    socket.on('connect_failed', function() {
+        console.log('connect_failed');
+    });
+
+    socket.on('reconnecting', function() {
+        console.log('reconnecting');
+    });
+
+    socket.on('reconnect', function() {
+        console.log('reconnect');
+    });
+
     socket.on('connect', function() {
         console.log('connected');
     });
+
+    // emit event
 
     socket.on('enter', function(socketId) {
         console.log('someone entered');
