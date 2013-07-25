@@ -30,8 +30,7 @@ if ('development' == app.get('env')) {
 }
 
 var appController = require('./app/controllers/app_controller').appController(app)
-  , userController = require('./app/controllers/user_controller').userController(app)
-  , messageController = require('./app/controllers/message_controller').messageController(app);
+  , userController = require('./app/controllers/user_controller').userController(app);
 
 app.get('/', appController.index);
 app.get('/users', userController.index);
@@ -42,4 +41,6 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 
 var sio = require('socket.io').listen(server);
 app.set('sio', sio);
+
+var  messageController = require('./app/controllers/message_controller').messageController(app);
 sio.sockets.on('connection', messageController.connection);
