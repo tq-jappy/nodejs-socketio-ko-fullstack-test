@@ -29,11 +29,7 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var appController = require('./app/controllers/app_controller').appController(app)
-  , userController = require('./app/controllers/user_controller').userController(app);
-
-app.get('/', appController.index);
-app.get('/users', userController.index);
+require('./config/routes')(app);
 
 var server = http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
