@@ -18,7 +18,7 @@ module.exports = function(app, config) {
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
-  app.use(express.static(path.join(__dirname, 'public')));
+  app.use(express.static(path.join(config.root, 'public')));
 
   // development only
   if ('development' == app.get('env')) {
