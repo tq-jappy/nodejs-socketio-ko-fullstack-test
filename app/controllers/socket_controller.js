@@ -1,21 +1,28 @@
 exports.messageController = function(app) {
-  var sio = app.get('sio');
+  var io = app.get('sio')
+  　　, clients = {};
   return {
     connection: function(socket) {
       console.log ("connected");
-      sio.sockets.emit('enter', socket.id);
 
-      socket.on('msg send', function(msg) {
-        socket.emit('msg push', msg);
+      socket.on('connect', function(data) {
+        clients[socket.id] = data.name;
+        io.sockets.emit('entered', data.name);
+      });
 
-        // send all clients.
-        sio.sockets.emit("msg push", "all -> " + msg);
-        // send other clients.
-        socket.broadcast.emit('msg push', "others -> " + msg);
+      socket.on('post_message', function(data) {
+        io.sockets.emit("chat_message", data);
       });
 
       socket.on('disconnect', function() {
-        socket.broadcast.emit('leave', socket.id);
+        console.log('disconnect');
+        var name = clients[socket.id];
+        if (name) {
+          delete clients[socket.id];
+        } else {
+          name = '?';
+        }
+        socket.broadcast.emit('leave', name);
       });
     }
   };

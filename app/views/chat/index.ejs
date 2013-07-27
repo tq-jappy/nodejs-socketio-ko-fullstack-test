@@ -1,17 +1,43 @@
-<h1>Simple Chat</h1>
+<h1>チャット</h1>
 
-<button class="btn btn-primary" data-bind="click: connect">
-  <i class="icon-home icon-white" style="margin-top: 1px;"></i> Enter
-</button>
+<!-- 名前入力（モーダル） -->
+<div class="modal hide" id="myModal">
+  <div class="modal-header">
+    <a class="close" data-dismiss="modal">×</a>
+    <h3>接続</h3>
+  </div>
+  <div class="modal-body">
+    <p>名前を入力してください。</p>
+    <p><input data-bind="value: name" /></p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn btn-primary" data-bind="click: connect">接続</a>
+    <a href="#" class="btn" data-dismiss="modal">キャンセル</a>
+  </div>
+</div>
 
-<input type="text" name="message" id="message" data-bind="value: message" />
-<button data-bind="click: post">POST</button>
+<!-- 接続 -->
+<div data-bind="ifnot: entered">
+  <button class="btn btn-primary" data-bind="click: enter">
+    <i class="icon-home icon-white" style="margin-top: 1px;"></i> 接続
+  </button>
+</div>
 
-<dl id="list" data-bind="foreach: messages">
-  <dt>
+<!-- メッセージ入力フォーム -->
+<div id="postArea" data-bind="if: entered">
+  <input type="text" name="message" id="message" data-bind="value: message" />
+  <button class="btn btn-primary" data-bind="click: post">
+    <i class="icon-bullhorn icon-white" style="margin-top: 1px;"></i> Post
+  </button>
+</div>
+
+<!-- メッセージ表示 -->
+<div data-bind="foreach: messages">
+  <div class="alert alert-block alert-info">
     <span data-bind="text: date"></span>
-  </dt>
-  <dd>
+    <h4 class="alert-heading">
+      <span data-bind="text: name"></span>
+    </h4>
     <span data-bind="text: message"></span>
-  </dd>
-</dl>
+  </div>
+</div>

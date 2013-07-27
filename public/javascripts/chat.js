@@ -1,77 +1,89 @@
 $(function() {
-    var socket = io.connect('http://localhost:3000/');
+    var socket = null;
+
+
+    function formatDate(date) {
+        if (date) {
+            return date.getFullYear() + "/"
+              + twoDigits(date.getMonth()+1) + "/"
+              + twoDigits(date.getDate()) + " "
+              + twoDigits(date.getHours()) + ":"
+              + twoDigits(date.getMinutes()) + ":"
+              + twoDigits(date.getSeconds());
+        } else {
+            return "";
+        }
+    }
+
+    function twoDigits(value) {
+        if (value < 10) {
+            return "0" + value;
+        } else {
+            return value;
+        }
+    }
 
     // Knockout
-    var MessageViewModel = function(date, message) {
-        this.date = ko.observable(date);
-        this.message = ko.observable(message);
-    };
-
     var chatViewModel = {
-        // socket: io.connect('http://localhost:3000/'),
+        name: ko.observable(""),
+        entered: ko.observable(false),
         message: ko.observable(""),
         messages: ko.observableArray(),
+        enter: function() {
+            $('#myModal').modal('show');
+        },
+        cancel: function() {
+            $('#myModal').modal('hide');
+        },
         connect: function() {
-            alert("a!");
+            socket = io.connect('http://localhost:3000/');
+            bindSocketEvents();
+            this.entered(true);
+            $('#myModal').modal('hide');
         },
         post: function() {
-            console.log(this.message());
-            socket.emit('msg send', this.message());
+            socket.emit('post_message', {name: this.name(), message: this.message()});
+            this.message('');
         },
-        add: function(date, message) {
+        add: function(name, message) {
             if (this.messages().length > 10) {
                 this.messages.pop();
             }
-            var newItem = new MessageViewModel(date, message);
-            this.messages.unshift(newItem);
+            this.messages.unshift({date: formatDate(new Date()), name: name, message: message});
         }
     };
     ko.applyBindings(chatViewModel);
 
-    socket.on('connecting', function() {
-        console.log('connecting');
-    });
+    function bindSocketEvents() {
+        socket.on('connecting', function() {
+            console.log('connecting');
+        });
 
-    socket.on('connection', function() {
-        console.log('connection');
-    });
+        socket.on('reconnecting', function() {
+            console.log('reconnecting');
+        });
 
-    socket.on('connect_failed', function() {
-        console.log('connect_failed');
-    });
+        socket.on('connect', function() {
+            socket.emit('connect', {name: chatViewModel.name()});
+        });
 
-    socket.on('reconnecting', function() {
-        console.log('reconnecting');
-    });
+        socket.on('reconnect', function() {
+            console.log('reconnect');
+        });
 
-    socket.on('reconnect', function() {
-        console.log('reconnect');
-    });
+        socket.on('entered', function(name) {
+            console.log("aaa");
+            chatViewModel.add(name, 'ログインしました。');
+        });
 
-    socket.on('connect', function() {
-        console.log('connected');
-    });
+        socket.on('leave', function(name) {
+            console.log('someone leaved');
 
-    // emit event
+            chatViewModel.add(name, 'ログアウトしました。');
+        });
 
-    socket.on('enter', function(socketId) {
-        console.log('someone entered');
-
-        var date = new Date();
-        appViewModel.add(date, socketId + ' logged in!');
-    });
-
-    socket.on('leave', function(socketId) {
-        console.log('someone leaved');
-
-        var date = new Date();
-        appViewModel.add(date, socketId + ' logged out!');
-    });
-
-    socket.on('msg push', function(msg) {
-        console.log(msg);
-
-        var date = new Date();
-        appViewModel.add(date, 'say: ' + msg);
-    });
+        socket.on('chat_message', function(data) {
+            chatViewModel.add(data.name, data.message);
+        });
+    }
 });
