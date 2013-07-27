@@ -1,13 +1,17 @@
 <h1>Simple Chat</h1>
 
-<input type="text" name="message" id="message" />
-<button id="btn">POST</button>
+<button class="btn btn-primary" data-bind="click: connect">
+  <i class="icon-home icon-white" style="margin-top: 1px;"></i> Enter
+</button>
+
+<input type="text" name="message" id="message" data-bind="value: message" />
+<button data-bind="click: post">POST</button>
 
 <dl id="list" data-bind="foreach: messages">
-<dt>
-<span data-bind="text: date"></span>
-</dt>
-<dd>
-<span data-bind="text: message"</span>
-</dd>
+  <dt>
+    <span data-bind="text: date"></span>
+  </dt>
+  <dd>
+    <span data-bind="text: message"></span>
+  </dd>
 </dl>

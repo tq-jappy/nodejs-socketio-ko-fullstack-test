@@ -7,8 +7,17 @@ $(function() {
         this.message = ko.observable(message);
     };
 
-    var appViewModel = {
+    var chatViewModel = {
+        // socket: io.connect('http://localhost:3000/'),
+        message: ko.observable(""),
         messages: ko.observableArray(),
+        connect: function() {
+            alert("a!");
+        },
+        post: function() {
+            console.log(this.message());
+            socket.emit('msg send', this.message());
+        },
         add: function(date, message) {
             if (this.messages().length > 10) {
                 this.messages.pop();
@@ -17,14 +26,7 @@ $(function() {
             this.messages.unshift(newItem);
         }
     };
-    ko.applyBindings(appViewModel);
-
-    $("#btn").click(function() {
-        var msg = $('#message');
-        console.log(msg);
-
-        socket.emit('msg send', msg.val());
-    });
+    ko.applyBindings(chatViewModel);
 
     socket.on('connecting', function() {
         console.log('connecting');
