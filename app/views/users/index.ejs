@@ -1,17 +1,31 @@
-<h1>Users</h1>
+<h1>ユーザ管理</h1>
+
+<!-- ユーザ追加ボタン -->
+<a href="/users/new" class="btn btn-success">
+  <i class="icon-plus icon-white" style="margin-top: 1px;"></i> ユーザ追加
+</a>
 
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
       <th>Age</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <% users.forEach(function(user){ %>
     <tr>
+      <td><%= user.id %></td>
       <td><%= user.name %></td>
       <td><%= user.age %></td>
+      <td>
+        <a href="/users/edit/<%= user.id %>" class="btn btn-info">編集</a>
+        <form method="POST" action="/users/<%= user.id %>" class="form-horizontal" style="display: inline;">
+          <input type="hidden", name="_method", value="DELETE" />
+          <input type="submit" class="btn btn-danger" value="削除" />
+        </form>
+      </td>
     </tr>
     <% }); %>
   </tbody>

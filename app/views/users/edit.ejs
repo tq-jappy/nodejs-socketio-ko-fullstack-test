@@ -1,0 +1,36 @@
+<h1>ユーザ編集</h1>
+
+<form method="post" action="/users/<%= user.id %>" class="form-horizontal">
+  <input type="hidden", name="_method", value="PUT" />
+  <fieldset>
+    <div class="control-group">
+      <label class="control-label" for="name">名前</label>
+      <div class="controls">
+        <input type="text" class="input-xlarge" id="name" name="name" value="<%= user.name %>">
+        <!-- <p class="help-block"></p> -->
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">性別</label>
+      <div class="controls">
+        <label class="radio">
+          <input type="radio" name="sex" id="optionsMale" value="male" checked>
+          男性
+        </label>
+        <label class="radio">
+          <input type="radio" name="sex" id="optionsFemale" value="female">
+          女性
+        </label>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" for="age">年齢</label>
+      <div class="controls">
+        <input type="text" class="input-small" id="age" name="age" value="<%= user.age %>">
+        <!-- <p class="help-block"></p> -->
+      </div>
+    </div>
+  </fieldset>
+
+  <input type="submit" class="btn btn-success" value="更新" data-bind="click: enter" />
+</form>

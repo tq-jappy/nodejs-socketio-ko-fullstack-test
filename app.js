@@ -21,7 +21,7 @@ var server = http.createServer(app).listen(app.get('port'), function(){
 var sio = require('socket.io').listen(server);
 app.set('sio', sio);
 
-var  messageController = require('./app/controllers/socket_controller').messageController(app);
-sio.sockets.on('connection', messageController.connection);
+var socketController = require('./app/controllers/socket_controller').socketController(app);
+sio.sockets.on('connection', socketController.connection);
 
 exports = module.exports = app;
