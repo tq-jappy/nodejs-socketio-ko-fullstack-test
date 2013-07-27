@@ -1,6 +1,6 @@
 exports.socketController = function(app) {
   var io = app.get('sio')
-  　　, clients = {};
+    , clients = {};
   return {
     connection: function(socket) {
       console.log ("connected");

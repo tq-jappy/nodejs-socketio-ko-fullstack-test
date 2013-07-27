@@ -1,7 +1,7 @@
 $(function() {
     var socket = null;
 
-
+    // Helpers
     function formatDate(date) {
         if (date) {
             return date.getFullYear() + "/"
