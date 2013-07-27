@@ -17,6 +17,10 @@ module.exports = function(app, config) {
   app.use(express.logger('dev'));
   app.use(express.bodyParser());
   app.use(express.methodOverride());
+  app.use(function(req, res, next){
+    app.locals.resources = res.locals.resources || [];
+    next();
+  });
   app.use(app.router);
   app.use(express.static(path.join(config.root, 'public')));
 
