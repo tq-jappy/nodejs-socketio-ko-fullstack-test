@@ -11,6 +11,16 @@
     <script src="/javascripts/chat.js"></script>
   </head>
   <body>
-    <%- body %>
+    <div class="container">
+      <div id="header">
+        <%- partial('header') %>
+      </div>
+      <div id="main" class="row">
+        <%- body %>
+      </div>
+    </div>
+    <div id="footer">
+        フッター
+    </div>
   </body>
 </html>
