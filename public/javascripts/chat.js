@@ -10,8 +10,11 @@ $(function() {
     var appViewModel = {
         messages: ko.observableArray(),
         add: function(date, message) {
+            if (this.messages().length > 10) {
+                this.messages.pop();
+            }
             var newItem = new MessageViewModel(date, message);
-            this.messages.push(newItem);
+            this.messages.unshift(newItem);
         }
     };
     ko.applyBindings(appViewModel);
