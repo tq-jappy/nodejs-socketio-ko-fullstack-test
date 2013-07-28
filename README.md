@@ -1,7 +1,7 @@
-nodets-websocket
+Node.js/WebSocket/Knockout.js
 ================
 
-Sample application using Node.js, WebSocket, Socket.IO, Knockout.js and MongoDB
+Simple Chat and user CRUD application using Node.js, WebSocket, Socket.IO and Knockout.js.
 
 ## Build
 
