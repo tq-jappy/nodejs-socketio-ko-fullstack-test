@@ -1,6 +1,5 @@
-module.exports = function(app) {
-  var io = app.get('sio')
-    , clients = {};
+module.exports = function(app, io) {
+  var clients = {};
   return {
     connection: function(socket) {
       console.log ("connected");
