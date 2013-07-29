@@ -22,7 +22,7 @@ exports.index = function(req, res) {
  *
  */
 exports.new = function(req, res) {
-  res.render('users/new');
+  res.render('users/new', {user: { name: '', age: '' }});
 };
 
 /**
