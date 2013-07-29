@@ -1,4 +1,4 @@
-exports.socketController = function(app) {
+module.exports = function(app) {
   var io = app.get('sio')
     , clients = {};
   return {
