@@ -1,14 +1,15 @@
-Node.js/WebSocket/Knockout.js
+Node.js Simple Application & Testing
 ================
 
-Simple Chat and user CRUD application using Express, Socket.IO(WebSocket) and Knockout.js, including both server and client tests.
+Simple Chat and CRUD (user management) application using:
 
 - Express
 - Socket.IO
 - Knockout.js
-- mocha
-- chai
-- phantomjs
+- mocha (testing)
+- should (testing)
+- chai (testing)
+- phantomjs, mocha-phantomjs (client testing)
 - CoffeeScript (only for tests)
 
 ## Build
@@ -25,6 +26,8 @@ Simple Chat and user CRUD application using Express, Socket.IO(WebSocket) and Kn
 2. ``nmp install -g coffee-script``
 
 Mocha options are specified in test/mocha.opts
+
+NODE:: To pass socket_controller_test.coffee, you should run application in advance.
 
 ### Run a server JavaScript test
 
