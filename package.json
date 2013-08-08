@@ -9,6 +9,8 @@
     "express": "3.3.4",
     "express-partials": "*",
     "socket.io": "*",
-    "ejs": "*"
+    "ejs": "*",
+    "mocha": "*",
+    "chai": "*"
   }
 }

@@ -13,26 +13,35 @@ Simple Chat and user CRUD application using Node.js, WebSocket, Socket.IO and Kn
 
 ### Setup
 
-1. ``npm install -g mocha``
-2. ``npm install -g should``
-3. ``nmp install -g coffee-script``
+1. ``npm install -g mocha-phantomjs phamtomjs``
+2. ``nmp install -g coffee-script``
 
 Mocha options are specified in test/mocha.opts
 
-### Run a .js test
+### Run a server JavaScript test
 
 ```
-mocha test\hoge.js
+mocha test/hoge.js
 ```
 
-### Run a .coffee test
+### Run a server CoffeeScript test
 
 ```
-mocha test\hoge.coffee
+mocha test/hoge.coffee
 ```
 
-### Run all tests
+### Run all server tests
 
 ```
 mocha
+```
+
+### Run client JavaScript tests using Browser
+
+Open file:`test_client/runner.html`
+
+### Run client JavaScript tests using CLI
+
+```
+phantomjs test_client\lib\mocha-phantomjs.coffee test_client\runner.html
 ```

@@ -1,5 +1,5 @@
 var assert = require('assert')
-  , greet = require('../lib/greet');
+  , greet = require('../../lib/greet');
 
 describe('greet', function() {
   describe('greet', function() {
