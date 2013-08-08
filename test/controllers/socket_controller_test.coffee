@@ -19,33 +19,44 @@ describe "socket_controller", ->
 
   describe "two members", =>
     it "should display index page with title", (done) =>
-      client1 = io.connect(url, options)
-      client2 = null
+      clientA = io.connect(url, options)
+      clientB = null
 
-      # 期待するメッセージを全てクライアントが受信できたかをチェックする関数
-      # "受信者名(1/2):送信者名(A/B):受信メッセージ"
-      checks = ["1:A:hello", "1:B:good-morning", "2:B:good-morning"]
-      isDone = (client, data) ->
-        check = client + ":" + data.name + ":" + data.message
-        checks = checks.filter (word) -> word isnt check
-        if checks.length is 0 then true else false
+      check =
+        fromA:
+          toA: false
+        fromB:
+          toA: false
+          toB: false
+        clientAisDone: ->
+          if (check.fromA.toA and check.fromB.toA) then true else false
+        clientBisDone: ->
+          if (check.fromB.toB) then true else false
 
-      client1.on 'connect', ->
-        client1.emit('post_message', {name: 'A', message: 'hello'})
+      clientA.on 'connect', ->
+        clientA.emit('post_message', {name: 'A', message: 'hello'})
 
-        client2 = io.connect(url, options)
+        clientB = io.connect(url, options)
 
-        client2.on 'connect', ->
-          client2.emit('post_message', {name: 'B', message: 'good-morning'})
+        clientB.on 'connect', ->
+          clientB.emit('post_message', {name: 'B', message: 'good-morning'})
 
-          client2.on 'chat_message', (data) ->
-            if (isDone('2', data))
-              client1.disconnect()
-              client2.disconnect()
-              done()
+          clientB.on 'chat_message', (data) ->
+            if (data.name is 'B' and data.message is 'good-morning')
+              check.fromB.toB = true
+              # console.log "clientB disconnect"
+              clientB.disconnect()
+              if (check.clientAisDone())
+                done()
 
-        client1.on 'chat_message', (data) ->
-          if (isDone('1', data))
-              client1.disconnect()
-              client2.disconnect()
-              done()
+        clientA.on 'chat_message', (data) ->
+          if (data.name is 'A' and data.message is 'hello')
+            check.fromA.toA = true
+          else if (data.name is 'B' and data.message is 'good-morning')
+            check.fromB.toA = true
+
+          if (check.clientAisDone())
+              # console.log "clientA disconnect"
+              clientA.disconnect()
+              if (check.clientBisDone())
+                done()
