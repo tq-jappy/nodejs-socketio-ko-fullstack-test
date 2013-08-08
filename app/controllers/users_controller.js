@@ -7,11 +7,13 @@ var users = {
 };
 var counter = 5;
 
+exports.users = users;
+
 /**
  *
  */
 exports.index = function(req, res) {
-  var users_ = []
+  var users_ = [];
   for (var id in users) {
     users_.push(users[id]);
   }

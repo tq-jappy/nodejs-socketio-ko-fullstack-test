@@ -1,7 +1,7 @@
 should = require 'should'
 controller = require '../../app/controllers/app_controller'
 
-describe "app_controllers", ->
+describe "app_controller", ->
   beforeEach =>
     console.log("beforeEach")
     @app = {}
@@ -9,7 +9,6 @@ describe "app_controllers", ->
     @res =
       redirect: ->
       render: ->
-    controller = controller.appController(@app)
 
   describe "index", =>
     console.log("runTest")
@@ -18,7 +17,6 @@ describe "app_controllers", ->
         view.should.equal "index"
         vars.title.should.eql "Express"
         done()
-
       controller.index(@req, @res)
 
   return
