@@ -1,7 +1,15 @@
 Node.js/WebSocket/Knockout.js
 ================
 
-Simple Chat and user CRUD application using Node.js, WebSocket, Socket.IO and Knockout.js.
+Simple Chat and user CRUD application using Express, Socket.IO(WebSocket) and Knockout.js, including both server and client tests.
+
+- Express
+- Socket.IO
+- Knockout.js
+- mocha
+- chai
+- phantomjs
+- CoffeeScript (only for tests)
 
 ## Build
 
