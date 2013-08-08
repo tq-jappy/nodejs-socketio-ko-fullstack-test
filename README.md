@@ -27,8 +27,6 @@ Simple Chat and CRUD (user management) application using:
 
 Mocha options are specified in test/mocha.opts
 
-**NOTE** To pass controllers/socket_controller_test.coffee, you should run application in advance.
-
 ### Run a server JavaScript test
 
 ```
