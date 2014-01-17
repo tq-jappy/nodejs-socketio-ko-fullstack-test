@@ -1,5 +1,5 @@
 should = require 'should'
-calc = require '../../lib/calc'
+calc = require '../../app/util/calc'
 
 describe 'calc', ->
   describe 'add', ->

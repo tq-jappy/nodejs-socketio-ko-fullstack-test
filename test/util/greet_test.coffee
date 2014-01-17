@@ -1,5 +1,5 @@
 assert = require 'assert'
-greet = require '../../lib/greet'
+greet = require '../../app/util/greet'
 
 describe 'greet', ->
   describe 'greet', ->
