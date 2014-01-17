@@ -3,10 +3,10 @@
  * Module dependencies.
  */
 
-var express = require('express')
-  , http = require('http')
-  , path = require('path')
-  , config = require('./config/config')['development'];
+var express = require('express');
+var http = require('http');
+var path = require('path');
+var config = require('./config/config.json')['development'];
 
 var app = express();
 

@@ -1,6 +1,6 @@
-var express = require('express')
-  , partials = require('express-partials')
-  , path = require('path');
+var express = require('express');
+var partials = require('express-partials');
+var path = require('path');
 
 /**
  *
@@ -10,8 +10,8 @@ module.exports = function(app, config) {
   app.use(partials());
 
   // all environments
-  app.set('port', config.server.port);
-  app.set('views', config.root + '/app/views');
+  app.set('port', config.server.port || 3000);
+  app.set('views', './app/views');
   app.set('view engine', 'ejs');
   app.use(express.favicon());
   app.use(express.logger('dev'));
@@ -22,7 +22,7 @@ module.exports = function(app, config) {
     next();
   });
   app.use(app.router);
-  app.use(express.static(path.join(config.root, 'public')));
+  app.use(express.static(path.join('.', 'public')));
 
   // development only
   if ('development' == app.get('env')) {
